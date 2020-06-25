@@ -1,0 +1,124 @@
+/* this program is a frequency analysis.
+It takes an encrypted cipher text, given by the user,
+and counts the number of times each letter of the alphabet appears.
+It prints out each letter and number of ocurrences.
+ */
+
+
+
+
+import java.util.Scanner;
+
+public class FrequenyAnalysis {
+
+    public static void main(String[] args){
+        
+        //gets text from user
+        
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Enter the ciphertext:");
+        String cipherText = scan.nextLine();
+
+
+        //call analyse method
+        Frequency[] results = analyse(cipherText);
+        
+        //print debugging
+        for (Frequency item: results) {
+            System.out.println(item);
+        }
+        
+        //sort our array using a bubble sort on the objects
+        sortArray(results);
+        
+        //our actual desired result - letters sorted by appearances in the ciphertext
+        for (Frequency item: results) {
+            System.out.println(item);
+        }
+
+
+    }
+
+    public static Frequency[] analyse(String cipherText){
+        //remove spaces from string, and assigns to variable "text"
+        String text = cipherText.replaceAll("\\s", "");
+        text = text.toUpperCase();
+
+        //converting to char arrary
+        char[] chars = text.toCharArray();
+
+        //create alphabet
+        char[] alphabet;
+        alphabet = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+        
+        //create an array of Frequency objects to store our results in
+        Frequency[] results = new Frequency[26];
+
+        //compare each character of our text against the alphabet, and initialise index variable
+
+        int i = 0;
+        for (char letter: alphabet){
+
+            int total = 0;
+            for (char compare: chars){
+                if (letter == compare){
+                    total ++;
+
+                }
+            }
+            
+            //old output method, I left it in to check if my other code was working correctly
+            if (total > 0) {
+                System.out.println("The letter " + letter + " Appears " + total + " times.");
+            }
+            
+            //write result to frequency object, and store in the array we made earlier
+            results[i] = new Frequency(letter, total);
+            i++;
+
+        }
+
+        return results;
+
+
+    }
+
+    public static void swapCharArray(char[] array, int swap1, int swap2){
+
+        char helper = array[swap1];
+        array[swap1] = array[swap2];
+        array[swap2] = helper;
+
+    }
+
+    public static void sortArray(Frequency[] numbers){
+        int j = 0;
+
+        for (j = numbers.length; j > 0; j--){
+            for (int i = 1; i < j; i++){
+                if (compareTo(numbers[i-1], numbers[i])){
+                    swapFrequencyArray(numbers, i-1, i);
+                }
+            }
+
+        }
+    }
+
+    public static boolean compareTo(Frequency item, Frequency ref) {
+        boolean check = false;
+        if (item.getFrequency() < ref.getFrequency()){
+            check = true;
+        }
+        return check;
+    }
+
+    public static void swapFrequencyArray(Frequency[] list, int swap1, int swap2){
+        char helperChar = list[swap1].getLetter();
+        int helperInt = list[swap1].getFrequency();
+        Frequency helper = new Frequency(helperChar, helperInt);
+        list[swap1] = list[swap2];
+        list[swap2] = helper;
+    }
+
+}
