@@ -1,0 +1,49 @@
+public class Frequency implements Comparable{
+
+    private char letter;
+    private int frequency;
+
+    public Frequency(char letter, int frequency){
+        this.letter = letter;
+        this.frequency = frequency;
+    }
+
+    public Frequency(char letter){
+        this(letter, 0);
+    }
+
+    public Frequency(){
+        this('a',0);
+    }
+
+    public int getFrequency(){
+        return this.frequency;
+    }
+
+    public char getLetter(){
+        return this.letter;
+    }
+
+    public String toString(){
+        return (this.letter + " " + this.frequency);
+    }
+
+
+
+    public static void swapFrequencyArray(Frequency[] list, int swap1, int swap2){
+        char helperChar = list[swap1].getLetter();
+        int helperInt = list[swap1].getFrequency();
+        Frequency helper = new Frequency(helperChar, helperInt);
+        list[swap1] = list[swap2];
+        list[swap2] = helper;
+    }
+
+    @Override
+    public boolean compareTo(Frequency item, Frequency ref) {
+        boolean check = false;
+        if (item.getFrequency() > ref.getFrequency()){
+            check = true;
+        }
+        return check;
+    }
+}
