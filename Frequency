@@ -31,9 +31,7 @@ public class Frequency implements Comparable{
 
 
     public static void swapFrequencyArray(Frequency[] list, int swap1, int swap2){
-        char helperChar = list[swap1].getLetter();
-        int helperInt = list[swap1].getFrequency();
-        Frequency helper = new Frequency(helperChar, helperInt);
+        Frequency helper = list[swap1]
         list[swap1] = list[swap2];
         list[swap2] = helper;
     }
