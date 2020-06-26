@@ -29,13 +29,6 @@ public class Frequency implements Comparable{
     }
 
 
-
-    public static void swapFrequencyArray(Frequency[] list, int swap1, int swap2){
-        Frequency helper = list[swap1]
-        list[swap1] = list[swap2];
-        list[swap2] = helper;
-    }
-
     @Override
     public boolean compareTo(Frequency item, Frequency ref) {
         boolean check = false;
